@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Jira Issue Dashboard</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+
+<h2>Jira Issue Dashboard</h2>
+
+<canvas id="chart" width="400" height="200"></canvas>
+
+<script>
+
+fetch("/api/status")
+.then(response => response.json())
+.then(data => {
+
+const labels = Object.keys(data)
+const values = Object.values(data)
+
+const ctx = document.getElementById("chart").getContext("2d")
+
+new Chart(ctx,{
+type:"bar",
+data:{
+labels:labels,
+datasets:[{
+label:"Issue Count",
+data:values,
+backgroundColor:["red","orange","green"]
+}]
+}
+})
+
+})
+
+</script>
+
+</body>
+</html>
+
